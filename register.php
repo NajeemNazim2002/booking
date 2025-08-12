@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
-    $role = strtolower(trim($_POST['role'])); // Make role lowercase and trim spaces
+    $role = 'user';
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $status = 'active'; // Default status
 
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Register | Indoor Hub</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <style>
         body {
             background: linear-gradient(120deg, #3f87a6, #ebf8e1, #f69d3c);
@@ -96,13 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="name" placeholder="Full Name" required>
         <input type="email" name="email" placeholder="Email Address" required>
         <input type="text" name="phone" placeholder="Phone Number" required>
-        <select name="role" required>
-            <option value="">-- Select Role --</option>
-           <option value="admin">Administrator</option>-->
-            <option value="manager">Centre Manager</option>
-            <option value="trainer">Trainer</option>
-            <option value="user">User</option>
-        </select>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Register</button>
         <?php if (!empty($msg)) echo "<p>$msg</p>"; ?>
