@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include 'db_con/db_connect.php';
 session_start();
 
 // Only admins can access

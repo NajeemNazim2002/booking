@@ -5,7 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'manager') {
     exit();
 }
 
-include 'db_connect.php';
+include 'db_con/db_connect.php';
 $manager_id = $_SESSION['user_id'];
 
 // Get the centre managed by this manager

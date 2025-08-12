@@ -1,12 +1,8 @@
 <?php
-include 'db_connect.php';
-session_start();
+include 'db_con/db_connect.php';
+require_once 'Auth.php'; // adjust path if needed
 
-// Allow only admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
-}
+Auth::requireRole('admin');
 
 // Handle status update (if form submitted)
 if (isset($_POST['update_status'])) {
@@ -25,6 +21,8 @@ $result = $conn->query("
     ORDER BY c.submitted_at DESC
 ");
 ?>
+
+
 
 <!DOCTYPE html>
 <html>

@@ -70,6 +70,10 @@
   </div>
 </section>
 
+<!--add stedium views-->
+<h2 class="fw-bold text-center mb-4">Our Stediums</h2>
+<?php include('frontend/stediumView.php'); ?>
+
 <!-- About Section -->
 <section class="py-5 bg-light">
   <div class="container text-center">
@@ -109,6 +113,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- Meet Our Team -->
 <section class="py-5">

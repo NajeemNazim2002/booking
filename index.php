@@ -16,7 +16,7 @@ session_start();
 <!-- Navigation -->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary shadow-sm">
   <div class="container">
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="index.php">
       <img src="images/logo.jpg" alt="Indoor Hub Logo" width="40" height="40" class="me-2"> INDOOR HUB
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -35,25 +35,14 @@ session_start();
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="py-5">
-  <div class="container text-center">
-    <div class="card border-0">
-      <img src="images/banner.jpeg" class="card-img" alt="Indoor Facility">
-      <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-white" style="background: rgba(0,0,0,0.4);">
-        <h1 class="fw-bold">Your Indoor Facility, Just a Click Away</h1>
-        <p>Effortlessly book and manage your indoor sports and event facilities with our intuitive platform.</p>
-        <div>
-          <a href="login.php" class="btn btn-primary me-2">Login</a>
-          <a href="register.php" class="btn btn-light">Register</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<!--add new hero-->
+<section class="position-relative">
+    <?php include('frontend/imageMove.php'); ?>
 </section>
 
 <!-- Include the rest of the sections here -->
-<?php include('home_sections.php'); ?>
+<?php include('frontend/home_sections.php'); ?>
 
 <!-- Footer -->
 <footer class="bg-dark text-center text-lg-start mt-5 text-white">

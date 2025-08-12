@@ -1,17 +1,8 @@
 <?php
-session_start();
 include 'db_con/db_connect.php';
+require_once 'Auth.php'; // adjust path if needed
 
-// Prevent page caching
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
-header("Pragma: no-cache"); // HTTP 1.0
-header("Expires: 0"); // Proxies
-
-// Redirect if not admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
-}
+Auth::requireRole('admin');
 
 // Fetch dashboard statistics
 $centreCount = $conn->query("SELECT COUNT(*) AS count FROM centres")->fetch_assoc()['count'] ?? 0;
@@ -19,8 +10,6 @@ $userCount = $conn->query("SELECT COUNT(*) AS count FROM users")->fetch_assoc()[
 $bookingCount = $conn->query("SELECT COUNT(*) AS count FROM bookings")->fetch_assoc()['count'] ?? 0;
 $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch_assoc()['total'] ?? 0;
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -32,12 +21,6 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
   <link href="css/common.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <script>
-        if (window.performance && performance.navigation.type === 2) {
-            location.reload(true);
-        }
-    </script>
-
 </head>
 <body>
 
@@ -48,19 +31,19 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
     <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <div class="text-center mb-3">
-          <img src="../images/logo.jpg" alt="Indoor Hub Logo" width="80" class="mt-2">
+          <img src="images/logo.jpg" alt="Indoor Hub Logo" width="80" class="mt-2">
           <h5 class="fw-bold">Administrator</h5>
         </div>
         <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link active" href="index.php"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="../managecentres.php"><i class="bi bi-building me-2"></i> Manage Centres</a></li>
-          <li class="nav-item"><a class="nav-link" href="../manageusers.php"><i class="bi bi-people me-2"></i> Manage Users</a></li>
-          <li class="nav-item"><a class="nav-link" href="../manageroles.php"><i class="bi bi-shield-lock me-2"></i> Manage Roles</a></li>
+          <li class="nav-item"><a class="nav-link active" href="admin.php"><i class="bi bi-house-door-fill me-2"></i> Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="managecentres.php"><i class="bi bi-building me-2"></i> Manage Centres</a></li>
+          <li class="nav-item"><a class="nav-link" href="manageusers.php"><i class="bi bi-people me-2"></i> Manage Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="manageroles.php"><i class="bi bi-shield-lock me-2"></i> Manage Roles</a></li>
           <li class="nav-item"><a class="nav-link" href="systemsettings.php"><i class="bi bi-gear me-2"></i> System Settings</a></li>
-          <li class="nav-item"><a class="nav-link" href="../reports.php"><i class="bi bi-graph-up me-2"></i> Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="reports.php"><i class="bi bi-graph-up me-2"></i> Reports</a></li>
             <li class="nav-item"><a class="nav-link" href=""><i class="bi bi-exclamation-circle me-2"></i> Complaints</a></li>
             <li class="nav-item">
-                <a class="nav-link" href="../logout.php">
+                <a class="nav-link" href="logout.php">
                     <i class="bi bi-box-arrow-right me-2"></i> Logout
                 </a>
             </li>
@@ -123,7 +106,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-building fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Manage Centres</h5>
               <p class="card-text">Add, edit, delete indoor centres.</p>
-              <a href="../managecentres.php" class="btn btn-primary">Go</a>
+              <a href="managecentres.php" class="btn btn-primary">Go</a>
             </div>
           </div>
         </div>
@@ -134,7 +117,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-people fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Manage Users</h5>
               <p class="card-text">View and edit all users.</p>
-              <a href="../manageusers.php" class="btn btn-primary">Go</a>
+              <a href="manageusers.php" class="btn btn-primary">Go</a>
             </div>
           </div>
         </div>
@@ -145,7 +128,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-shield-lock fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Manage Roles</h5>
               <p class="card-text">Assign roles and permissions.</p>
-              <a href="../manageroles.php" class="btn btn-primary">Go</a>
+              <a href="manageroles.php" class="btn btn-primary">Go</a>
             </div>
           </div>
         </div>
@@ -158,7 +141,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-graph-up fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Reports</h5>
               <p class="card-text">Generate and view reports.</p>
-              <a href="../reports.php" class="btn btn-primary">Reports</a>
+              <a href="reports.php" class="btn btn-primary">Reports</a>
             </div>
           </div>
         </div>
@@ -169,7 +152,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-exclamation-circle fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Complaints</h5>
               <p class="card-text">Handle user complaints.</p>
-              <a href="../complaints.php" class="btn btn-primary">View Complaints</a>
+              <a href="complaints.php" class="btn btn-primary">View Complaints</a>
             </div>
           </div>
         </div>
@@ -180,7 +163,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-cloud-upload fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Upload Facility Photos</h5>
               <p class="card-text">Upload and manage images for each indoor centre.</p>
-              <a href="../uploadphotos.php" class="btn btn-primary">Upload</a>
+              <a href="uploadphotos.php" class="btn btn-primary">Upload</a>
             </div>
           </div>
         </div>
@@ -193,7 +176,7 @@ $paymentTotal = $conn->query("SELECT SUM(amount) AS total FROM payments")->fetch
               <i class="bi bi-calendar-x fs-1 text-primary mb-3"></i>
               <h5 class="card-title">Block Maintenance Dates</h5>
               <p class="card-text">Schedule unavailable dates for maintenance or closures.</p>
-              <a href="../blockmaintenancedate.php" class="btn btn-primary">Block Dates</a>
+              <a href="blockmaintenancedate.php" class="btn btn-primary">Block Dates</a>
             </div>
           </div>
         </div>

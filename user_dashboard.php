@@ -1,12 +1,10 @@
 <?php
-session_start();
+include 'db_con/db_connect.php';
+require_once 'Auth.php'; // adjust path if needed
 
-// Only allow logged-in users with 'user' role
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
-    header("Location: login.php");
-    exit();
-}
+Auth::requireRole('user');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +34,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
           <li class="nav-item"><a class="nav-link" href="trainerbookingpage.php"><i class="bi bi-person-plus me-2"></i> Book Trainer</a></li>
           <li class="nav-item"><a class="nav-link" href="paymentpage.php"><i class="bi bi-credit-card me-2"></i> Payments</a></li>
           <li class="nav-item"><a class="nav-link" href="notificationpage.php"><i class="bi bi-bell me-2"></i> Notifications</a></li>
-          <li class="nav-item"><a class="nav-link" href="rup.php"><i class="bi bi-star me-2"></i> Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="frontend/stadiumGallery.php"><i class="bi bi-star me-2"></i> Reviews</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+            </li>
         </ul>
       </div>
     </nav>

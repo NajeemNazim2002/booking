@@ -1,6 +1,26 @@
 <?php
-include 'db_connect.php';
+global $conn;
+include 'db_con/db_connect.php';
 session_start();
+
+// ✅ Redirect if user is already logged in
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    $role = strtolower($_SESSION['role']);
+    switch ($role) {
+        case 'admin':
+            header("Location: admin.php");
+            exit();
+        case 'manager':
+            header("Location: centremanagerdashboard.php");
+            exit();
+        case 'trainer':
+            header("Location: trainer_dashboard.php");
+            exit();
+        default:
+            header("Location: user_dashboard.php");
+            exit();
+    }
+}
 
 $msg = "";
 
@@ -26,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $role = strtolower($user['role']);
             switch ($role) {
                 case 'admin':
-                    header("Location: admin_dashboard.php");
+                    header("Location: admin.php");
                     break;
                 case 'manager':
-                    header("Location: manager_dashboard.php");
+                    header("Location: centremanagerdashboard.php");
                     break;
                 case 'trainer':
                     header("Location: trainer_dashboard.php");
@@ -52,7 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login | Indoor Hub</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             background: linear-gradient(120deg, #3f87a6, #ebf8e1, #f69d3c);

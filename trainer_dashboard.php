@@ -1,10 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'trainer') {
-    header("Location: login.php");
-    exit();
-}
+include 'db_con/db_connect.php';
+require_once 'Auth.php'; // adjust path if needed
+
+Auth::requireRole('trainer');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +34,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'trainer') {
           <li class="nav-item"><a class="nav-link" href="trainer_availability.php"><i class="bi bi-calendar-check me-2"></i> Availability</a></li>
           <li class="nav-item"><a class="nav-link" href="trainer_requests.php"><i class="bi bi-check2-square me-2"></i> Requests</a></li>
           <li class="nav-item"><a class="nav-link" href="trainer_feedback.php"><i class="bi bi-chat-left-text me-2"></i> Feedback</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+            </li>
         </ul>
       </div>
     </nav>

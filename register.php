@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include 'db_con/db_connect.php';
 
 $msg = "";
 
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="phone" placeholder="Phone Number" required>
         <select name="role" required>
             <option value="">-- Select Role --</option>
-            <option value="admin">Administrator</option>
+           <option value="admin">Administrator</option>-->
             <option value="manager">Centre Manager</option>
             <option value="trainer">Trainer</option>
             <option value="user">User</option>
